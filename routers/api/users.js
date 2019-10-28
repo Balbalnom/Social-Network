@@ -4,6 +4,8 @@ const { check, validationResult } = require('express-validator');
 const gravatar = require('gravatar');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 //@route GET api/users
 //@desc Register user
@@ -33,7 +35,7 @@ async(req, res) => {
         let user = await User.findOne({ email});
     //see if user exists
     if(user){
-        res.status(400).json({errors: [{msg: 'User already exists'}] });
+        return res.status(400).json({errors: [{msg: 'User already exists'}] });
     }
 
     //get users gravatar(Avatar)
@@ -58,13 +60,25 @@ async(req, res) => {
     await user.save(); //everything is promise put a await ?
 
     //Return jsonwebToken
-    res.send('User Registered')
+    const payload ={
+        user:{
+            id: user.id
+        }
+       
+    }
+    jwt.sign(
+        payload, 
+        config.get('jwtSecret'),
+        (err, token) =>{
+            if(err) throw err;
+            res.json({ token });
+        }
+        );
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server error...');
     }
     
- 
 });
 
 module.exports = router;
