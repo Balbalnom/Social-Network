@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "boom": "nodemon server"
+    "boom": "nodemon server",
+    "client": "npm start --prefix client",
+    "client-dev": "nodemon --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "test": "concurrently \"npm run boom\" \"npm run client-dev\""
   },
   "author": "Dave Li",
   "license": "MIT",
