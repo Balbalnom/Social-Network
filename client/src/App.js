@@ -5,10 +5,12 @@ import Landing from './components/layout/Landing';
 import './App.css';
 
 const App = () => (
-  <Fragment>
+  <Router>
+   <Fragment>
     <Navbar />
-    <Router exact path = '/' component = {Landing} />
-  </Fragment>
+    <Route exact path = '/' component = {Landing} />
+   </Fragment>
+  </Router>
 );
 
 
