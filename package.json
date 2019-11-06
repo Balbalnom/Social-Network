@@ -7,7 +7,6 @@
     "start": "node server",
     "boom": "nodemon server",
     "client": "npm start --prefix client",
-    "client-dev": "nodemon --prefix client",
     "dev": "concurrently \"npm run start\" \"npm run client\""
   },
   "author": "Dave Li",
@@ -25,5 +24,6 @@
   "devDependencies": {
     "concurrently": "^5.0.0",
     "nodemon": "^1.19.4"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
